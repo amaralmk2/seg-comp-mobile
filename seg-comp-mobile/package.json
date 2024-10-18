@@ -1,0 +1,29 @@
+{
+  "name": "seg-comp-mobile",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.34",
+    "expo": "~51.0.38",
+    "expo-app-loading": "^2.1.1",
+    "expo-font": "~12.0.10",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.3.1",
+    "react-native": "^0.75.4",
+    "styled-component": "^2.8.0",
+    "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.8",
+    "@types/react": "~18.3.11",
+    "@types/styled-components-react-native": "^5.2.5",
+    "typescript": "^5.6.3"
+  },
+  "private": true
+}
