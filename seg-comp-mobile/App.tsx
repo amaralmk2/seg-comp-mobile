@@ -4,6 +4,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { HeaderApp } from './components/Header';
 import { useFonts } from 'expo-font';
 import  Home  from './screens/Home';
+import Login from './screens/Login';
 import AppLoading from 'expo-app-loading';
 
 
@@ -19,6 +20,6 @@ export default function App() {
   }
 
   return (
-      <Home/>
+      <Login/>
   );
 }
