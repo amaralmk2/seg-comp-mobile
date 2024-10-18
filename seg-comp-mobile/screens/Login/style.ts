@@ -40,6 +40,19 @@ export const SubTitle = styled.Text`
 
 `;
 
+export const EndSubTitle = styled.Text`
+
+    font-size: 21px;
+    color: #00274D;
+    font-family: 'Roboto';
+    text-decoration: underline;
+    text-align: center;
+    position: relative;
+    top: 230%;
+
+
+`;
+
 export const Input = styled.TextInput`
 
     background-color: #F5F5F5;

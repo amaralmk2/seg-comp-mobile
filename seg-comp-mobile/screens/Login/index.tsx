@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { HeaderApp } from "../../components/Header";
-import { BottomSend, Container, ContainerForm, Input, SubTitle, TitleForm, TextBottom } from "./style";
+import { BottomSend, Container, ContainerForm, Input, SubTitle, TitleForm, TextBottom, EndSubTitle } from "./style";
 import { ContainerField } from "./style";
 
 
@@ -23,8 +23,10 @@ export default function Login() {
             </ContainerField>
             <BottomSend><TextBottom>Entrar</TextBottom></BottomSend>
         </ContainerForm>
+
         
       </Container>
+      <EndSubTitle>Ainda não tem cadastro? Cadastre-se</EndSubTitle>
     </View>
   );
 }
