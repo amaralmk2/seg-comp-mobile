@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export const Header = styled.View`
     background-color: #00274D;
@@ -21,6 +20,7 @@ export const TitleHeader = styled.Text`
 
 `;
 
+
 export const IconContainer = styled.View`
-  margin-top: 10px; // Adicione a margem desejada aqui
+  margin-top: 10px; 
 `;
