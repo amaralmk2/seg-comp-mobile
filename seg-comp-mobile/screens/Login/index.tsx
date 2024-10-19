@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { HeaderApp } from "../../components/Header";
 import { BottomSend, Container, ContainerForm, Input, SubTitle, TitleForm, TextBottom, EndSubTitle } from "./style";
 import { ContainerField } from "./style";
@@ -26,7 +26,10 @@ export default function Login() {
 
         
       </Container>
-      <EndSubTitle>Ainda não tem cadastro? Cadastre-se</EndSubTitle>
+      <TouchableOpacity onPress={() => Linking.openURL('https://www.w3schools.com')}>
+        <EndSubTitle>Ainda não tem cadastro? Cadastre-se</EndSubTitle>
+      </TouchableOpacity>
+
     </View>
   );
 }

@@ -14,7 +14,8 @@
     "expo-app-loading": "^2.1.1",
     "expo-font": "~12.0.10",
     "expo-status-bar": "~1.12.1",
-    "react": "18.3.1",
+    "expo-updates": "~0.25.27",
+    "react": "^18.3.1",
     "react-native": "^0.75.4",
     "styled-component": "^2.8.0",
     "styled-components": "^6.1.13"
