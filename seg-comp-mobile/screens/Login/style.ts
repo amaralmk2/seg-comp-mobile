@@ -47,9 +47,6 @@ export const EndSubTitle = styled.Text`
     font-family: 'Roboto';
     text-decoration: underline;
     text-align: center;
-    position: relative;
-    top: 230%;
-
 
 `;
 
@@ -90,4 +87,12 @@ export const TextBottom = styled.Text`
     color: white;
     text-align: center;
     margin-top: 12px;
+`;
+
+export const Link = styled.TouchableOpacity`
+
+    
+    position: relative;
+    top: 230%;
+
 `;
