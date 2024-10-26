@@ -7,7 +7,7 @@ export function HeaderApp() {
   return (
     <Header>
       <FontAwesome5 name="keycdn" size={40} color="white" style={{ marginTop: 28 }}/>
-      <TitleHeader>Portal de Segurança Pública</TitleHeader>
+      <TitleHeader>Segurança Compartilhada</TitleHeader>
     </Header>
   );
 }
