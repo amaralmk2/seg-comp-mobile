@@ -2,10 +2,9 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ScrollView, Text } from "react-native";
-import styled from "styled-components/native";
 import { z } from "zod";
 import { Picker } from "@react-native-picker/picker";
-import { TextInputMask } from "react-native-masked-text";
+import { Checkbox } from 'react-native-paper';
 import { ErrorText, FormContainer, PickerContainer, StyledInput, StyledMaskedInput, SubmitButton, SubmitButtonText, Title } from "../style";
 
 const validationSchema = z.object({
@@ -50,8 +49,7 @@ export default function UserRegistration() {
   return (
     <ScrollView>
       <FormContainer>
-        <Title>Criação de Conta</Title>
-
+        <Title>Crie a sua conta!</Title>
         <Controller
           control={control}
           name="firstName"
@@ -67,7 +65,6 @@ export default function UserRegistration() {
             </>
           )}
         />
-
         <Controller
           control={control}
           name="lastName"
@@ -83,7 +80,6 @@ export default function UserRegistration() {
             </>
           )}
         />
-
         <Controller
           control={control}
           name="gender"
@@ -101,7 +97,21 @@ export default function UserRegistration() {
             </>
           )}
         />
-
+        <Controller
+          control={control}
+          name="birthDate"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="Data de Nascimento (DD/MM/YYYY)"
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.birthDate}
+              />
+              {errors.birthDate && <ErrorText>{errors.birthDate.message}</ErrorText>}
+            </>
+          )}
+        />
         <Controller
           control={control}
           name="cpf"
@@ -118,6 +128,130 @@ export default function UserRegistration() {
             </>
           )}
         />
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="E-mail"
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.email}
+              />
+              {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="Senha"
+                secureTextEntry
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.password}
+              />
+              {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="Confirme a Senha"
+                secureTextEntry
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.confirmPassword}
+              />
+              {errors.confirmPassword && <ErrorText>{errors.confirmPassword.message}</ErrorText>}
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="street"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="Rua"
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.street}
+              />
+              {errors.street && <ErrorText>{errors.street.message}</ErrorText>}
+            </>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="streetNumber"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="Número da Rua"
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.streetNumber}
+              />
+              {errors.streetNumber && <ErrorText>{errors.streetNumber.message}</ErrorText>}
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="zipCode"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledMaskedInput
+                type="zip-code"
+                placeholder="CEP"
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.zipCode}
+              />
+              {errors.zipCode && <ErrorText>{errors.zipCode.message}</ErrorText>}
+            </>
+          )}
+        />
+
+        {/* Cidade */}
+        <Controller
+          control={control}
+          name="city"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                placeholder="Cidade"
+                onChangeText={onChange}
+                value={value}
+                hasError={!!errors.city}
+              />
+              {errors.city && <ErrorText>{errors.city.message}</ErrorText>}
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="privacyPolicy"
+          render={({ field: { onChange, value } }) => (
+              <>
+                <Checkbox
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() => onChange(!value)}
+                />
+                {errors.privacyPolicy && <ErrorText>{errors.privacyPolicy.message}</ErrorText>}
+              </>
+          )}
+        />;
 
         <SubmitButton onPress={handleSubmit(onSubmit)}>
           <SubmitButtonText>Cadastrar</SubmitButtonText>
