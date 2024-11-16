@@ -8,7 +8,6 @@ import Login from './screens/Login';
 import { SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 
-
 export default function App() {
 
   const [fontsLoaded] = useFonts({
@@ -16,6 +15,9 @@ export default function App() {
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
   });
   return (
+    <View>
+      <StatusBar style="light" />
       <Login/>
+    </View>
   );
 }
