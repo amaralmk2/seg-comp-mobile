@@ -5,8 +5,8 @@ import { HeaderApp } from './components/Header';
 import { useFonts } from 'expo-font';
 import  Home  from './screens/Home';
 import Login from './screens/Login';
-import AppLoading from 'expo-app-loading';
-
+import { SplashScreen } from 'expo-router';
+import { useEffect } from 'react';
 
 export default function App() {
 
@@ -14,12 +14,10 @@ export default function App() {
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
   });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   return (
+    <View>
+      <StatusBar style="light" />
       <Login/>
+    </View>
   );
 }
