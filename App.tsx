@@ -4,7 +4,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { HeaderApp } from './components/Header';
 import { useFonts } from 'expo-font';
 import  Home  from './screens/Home';
-import Login from './screens/Login';
+import Login from './screens/Auth/Login';
 import { SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 
