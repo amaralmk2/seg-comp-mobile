@@ -1,4 +1,3 @@
-import { TextInputMask } from 'react-native-masked-text';
 import styled from 'styled-components/native';
 
 export const FormContainer = styled.View`
@@ -18,14 +17,6 @@ interface InputProps {
   }
   
 export const StyledInput = styled.TextInput<InputProps>`
-  border: 1px solid ${(props: any) => (props.hasError ? 'red' : '#ccc')};
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: #f5f5f5;
-`;
-
-export const StyledMaskedInput = styled(TextInputMask)<{ hasError: boolean }>`
   border: 1px solid ${(props: any) => (props.hasError ? 'red' : '#ccc')};
   padding: 10px;
   margin-bottom: 10px;

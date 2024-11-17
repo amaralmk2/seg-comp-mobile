@@ -1,39 +1,14 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ScrollView, Text } from "react-native";
-import { z } from "zod";
+import { ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from 'react-native-paper';
-import { ErrorText, FormContainer, PickerContainer, StyledInput, StyledMaskedInput, SubmitButton, SubmitButtonText, Title } from "../style";
+import { ErrorText, FormContainer, PickerContainer, StyledInput, SubmitButton, SubmitButtonText, Title } from "../style";
+import { cepApplyMask, cpfApplyMask, dateApplyMask } from "src/utils";
+import { validationSchema } from './validationSchema';
 
-const validationSchema = z.object({
-  firstName: z.string().min(1, "O primeiro nome é obrigatório"),
-  lastName: z.string().min(1, "O sobrenome é obrigatório"),
-  gender: z.enum(["Masculino", "Feminino", "Outro"]),
-  birthDate: z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, "Data de nascimento inválida"),
-  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF inválido"),
-  email: z.string().email("E-mail inválido"),
-  password: z
-    .string()
-    .min(8, "A senha deve ter no mínimo 8 caracteres")
-    .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
-    .regex(/[a-z]/, "A senha deve conter pelo menos uma letra minúscula")
-    .regex(/[\W_]/, "A senha deve conter pelo menos um caractere especial"),
-  confirmPassword: z.string().min(1, "Confirmação de senha é obrigatória"),
-  street: z.string().min(5, "Rua deve ter no mínimo 5 caracteres").max(100, "Rua deve ter no máximo 100 caracteres"),
-  streetNumber: z.string().min(1, "Número da rua é obrigatório"),
-  zipCode: z.string().regex(/^\d{5}-\d{3}$/, "CEP inválido"),
-  city: z.string().min(1, "Cidade é obrigatória"),
-  privacyPolicy: z.boolean().refine((val) => val === true, {
-    message: "É necessário aceitar a política de privacidade",
-  }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "As senhas não coincidem",
-  path: ["confirmPassword"],
-});
-
-export default function UserRegistration() {
+export function UserRegistration() {
   const {
     control,
     handleSubmit,
@@ -42,9 +17,10 @@ export default function UserRegistration() {
     resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit = (data: any) => {
+  function onSubmit (data: any) {
     console.log(data);
   };
+
 
   return (
     <ScrollView>
@@ -104,7 +80,10 @@ export default function UserRegistration() {
             <>
               <StyledInput
                 placeholder="Data de Nascimento (DD/MM/YYYY)"
-                onChangeText={onChange}
+                onChangeText={(text: string) => {
+                  const maskedValue = dateApplyMask(text); 
+                  onChange(maskedValue); 
+                }}
                 value={value}
                 hasError={!!errors.birthDate}
               />
@@ -117,10 +96,13 @@ export default function UserRegistration() {
           name="cpf"
           render={({ field: { onChange, value } }) => (
             <>
-              <StyledMaskedInput
+              <StyledInput
                 type="cpf"
                 placeholder="CPF"
-                onChangeText={onChange}
+                onChangeText={(text: string) => {
+                  const maskedValue = cpfApplyMask(text);
+                  onChange(maskedValue); 
+                }}
                 value={value}
                 hasError={!!errors.cpf}
               />
@@ -211,10 +193,13 @@ export default function UserRegistration() {
           name="zipCode"
           render={({ field: { onChange, value } }) => (
             <>
-              <StyledMaskedInput
+              <StyledInput
                 type="zip-code"
                 placeholder="CEP"
-                onChangeText={onChange}
+                onChangeText={(text: string) => {
+                  const maskedValue = cepApplyMask(text); 
+                  onChange(maskedValue); 
+                }}
                 value={value}
                 hasError={!!errors.zipCode}
               />
@@ -223,7 +208,6 @@ export default function UserRegistration() {
           )}
         />
 
-        {/* Cidade */}
         <Controller
           control={control}
           name="city"
@@ -246,12 +230,12 @@ export default function UserRegistration() {
               <>
                 <Checkbox
                   status={value ? 'checked' : 'unchecked'}
-                  onPress={() => onChange(!value)}
+                  onPress={() => onChange(!value)}  
                 />
                 {errors.privacyPolicy && <ErrorText>{errors.privacyPolicy.message}</ErrorText>}
               </>
           )}
-        />;
+        />
 
         <SubmitButton onPress={handleSubmit(onSubmit)}>
           <SubmitButtonText>Cadastrar</SubmitButtonText>

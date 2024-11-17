@@ -4,23 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { Text } from "react-native";
-
-const validationSchema = z.object({
-    email: z
-      .string({
-        required_error: "O e-mail é obrigatório", 
-      })
-      .email("Digite um e-mail válido"),
-    password: z
-      .string({
-        required_error: "A senha é obrigatória",
-      })
-      .min(8, "A senha deve ter pelo menos 8 caracteres")
-      .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
-      .regex(/[a-z]/, "A senha deve conter pelo menos uma letra minúscula")
-      .regex(/[\W_]/, "A senha deve conter pelo menos um caractere especial"),
-  });
-  
+import { validationSchema } from "./validationSchema";
   interface FormData {
     email: string;
     password: string;
