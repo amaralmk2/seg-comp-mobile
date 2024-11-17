@@ -15,10 +15,10 @@ export const validationSchema = z.object({
       .regex(/[\W_]/, "A senha deve conter pelo menos um caractere especial"),
     confirmPassword: z.string().min(1, "Confirmação de senha é obrigatória"),
     street: z.string().min(5, "Rua deve ter no mínimo 5 caracteres").max(100, "Rua deve ter no máximo 100 caracteres"),
-    streetNumber: z.string().min(1, "Número da rua é obrigatório"),
-    zipCode: z.string().regex(/^\d{5}-\d{3}$/, "CEP inválido"),
+    number: z.string().min(1, "Número da residência é obrigatório"),
+    zipcode: z.string().regex(/^\d{5}-\d{3}$/, "CEP inválido"),
     city: z.string().min(1, "Cidade é obrigatória"),
-    privacyPolicy: z.boolean().refine((val) => val === true, {
+    privacyPolicyAccepted: z.boolean().refine((val) => val === true, {
       message: "É necessário aceitar a política de privacidade",
     }),
   }).refine((data) => data.password === data.confirmPassword, {

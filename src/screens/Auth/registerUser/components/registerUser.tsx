@@ -4,24 +4,55 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from 'react-native-paper';
-import { ErrorText, FormContainer, PickerContainer, StyledInput, SubmitButton, SubmitButtonText, Title } from "../style";
+import { ErrorText, FormContainer, PickerContainer, StyledInput, SubmitButton, SubmitButtonText, Title } from '../style';
 import { cepApplyMask, cpfApplyMask, dateApplyMask } from "src/utils";
 import { validationSchema } from './validationSchema';
+import {api} from 'src/api/api';
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  birthDate: string 
+  cpf: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  zipcode: string;
+  street: string;
+  number: string;
+  city: string;
+  privacyPolicyAccepted: boolean;
+}
 
 export function UserRegistration() {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormData>({
     resolver: zodResolver(validationSchema),
   });
+  async function onSubmit(data: FormData) {
+    const { confirmPassword, ...requestData } = data;
+    const formatedRequestData = {
+      ...requestData,
+      privacyPolicyAccepted: requestData.privacyPolicyAccepted,
+      address: {
+        street: requestData.street,
+        number: requestData.number,
+        zipcode: requestData.zipcode,
+        city: requestData.city
+      }
+    }
 
-  function onSubmit (data: any) {
-    console.log(data);
-  };
-
-
+    try {
+      const result = await api.post('/user/create', formatedRequestData);
+      console.log('Resposta da API:', result.data); // Mostra apenas os dados retornados pela API
+    } catch (error) {
+      console.error('Erro na requisição:', error.response?.data || error.message);
+    }
+  }
   return (
     <ScrollView>
       <FormContainer>
@@ -157,6 +188,25 @@ export function UserRegistration() {
             </>
           )}
         />
+         <Controller
+          control={control}
+          name="zipcode"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <StyledInput
+                type="zipcode"
+                placeholder="CEP"
+                onChangeText={(text: string) => {
+                  const maskedValue = cepApplyMask(text); 
+                  onChange(maskedValue); 
+                }}
+                value={value}
+                hasError={!!errors.zipcode}
+              />
+              {errors.zipcode && <ErrorText>{errors.zipcode.message}</ErrorText>}
+            </>
+          )}
+        />
         <Controller
           control={control}
           name="street"
@@ -175,39 +225,19 @@ export function UserRegistration() {
 
         <Controller
           control={control}
-          name="streetNumber"
+          name="number"
           render={({ field: { onChange, value } }) => (
             <>
               <StyledInput
-                placeholder="Número da Rua"
+                placeholder="Número da residência"
                 onChangeText={onChange}
                 value={value}
-                hasError={!!errors.streetNumber}
+                hasError={!!errors.number}
               />
-              {errors.streetNumber && <ErrorText>{errors.streetNumber.message}</ErrorText>}
+              {errors.number && <ErrorText>{errors.number.message}</ErrorText>}
             </>
           )}
         />
-        <Controller
-          control={control}
-          name="zipCode"
-          render={({ field: { onChange, value } }) => (
-            <>
-              <StyledInput
-                type="zip-code"
-                placeholder="CEP"
-                onChangeText={(text: string) => {
-                  const maskedValue = cepApplyMask(text); 
-                  onChange(maskedValue); 
-                }}
-                value={value}
-                hasError={!!errors.zipCode}
-              />
-              {errors.zipCode && <ErrorText>{errors.zipCode.message}</ErrorText>}
-            </>
-          )}
-        />
-
         <Controller
           control={control}
           name="city"
@@ -225,14 +255,14 @@ export function UserRegistration() {
         />
         <Controller
           control={control}
-          name="privacyPolicy"
+          name="privacyPolicyAccepted"
           render={({ field: { onChange, value } }) => (
               <>
                 <Checkbox
                   status={value ? 'checked' : 'unchecked'}
                   onPress={() => onChange(!value)}  
                 />
-                {errors.privacyPolicy && <ErrorText>{errors.privacyPolicy.message}</ErrorText>}
+                {errors.privacyPolicyAccepted && <ErrorText>{errors.privacyPolicyAccepted.message}</ErrorText>}
               </>
           )}
         />
