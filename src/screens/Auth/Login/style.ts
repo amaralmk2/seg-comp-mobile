@@ -84,6 +84,6 @@ export const TextErros = styled.Text`
 `;
 
 export const Link = styled.TouchableOpacity`
-    position: relative;
-    top: 230%;
+    text-align: center;
+    margin-top: 13.7px;
 `;

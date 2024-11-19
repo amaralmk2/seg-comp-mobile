@@ -1,23 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { HeaderApp } from './components/Header';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'; // Adicionado
 import { useFonts } from 'expo-font';
-import  Home  from './screens/Home';
-import Login from './screens/Login';
-import { SplashScreen } from 'expo-router';
-import { useEffect } from 'react';
+import { RootNavigator } from 'src/screens';
+import { AuthProvider } from 'src/context/auth-context/auth-context';
 
 export default function App() {
-
   const [fontsLoaded] = useFonts({
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
   });
+
+  if (!fontsLoaded) {
+    return null; // Exibe nada até as fontes serem carregadas
+  }
+
   return (
-    <View>
-      <StatusBar style="light" />
-      <Login/>
-    </View>
+    <View style={{ flex: 1 }}>
+        <StatusBar style="light" />
+      <AuthProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+     </AuthProvider>
+        </View>
   );
 }
+
