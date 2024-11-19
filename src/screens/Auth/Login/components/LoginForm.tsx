@@ -3,16 +3,28 @@ import { ContainerField } from "../style";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
-import { Text } from "react-native";
 import { validationSchema } from "./validationSchema";
+import { api } from "src/api/api";
+import { AuthContext } from "src/context/auth-context/auth-context";
+import { useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { RootNavigationProp } from "src/types/navigation";
   interface FormData {
     email: string;
     password: string;
   }
 export function LoginForm() {
-    const onSubmit = (data: FormData) => {
-        console.log(data);
-      };
+    const {login, isAuthenticated} = useContext(AuthContext);
+    const navigation = useNavigation<RootNavigationProp>();
+    async function onSubmit (data: FormData) {
+       const { email, password } = data;
+        await login(email, password);
+        
+       if(isAuthenticated) {
+        console.log("Login bem-sucedido");
+        navigation.navigate("HomeScreen");
+       }
+    };
 
       const {
         control,

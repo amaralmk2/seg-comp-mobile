@@ -8,6 +8,7 @@ import { ErrorText, FormContainer, PickerContainer, StyledInput, SubmitButton, S
 import { cepApplyMask, cpfApplyMask, dateApplyMask } from "src/utils";
 import { validationSchema } from './validationSchema';
 import {api} from 'src/api/api';
+import { AxiosError } from "axios";
 
 interface FormData {
   firstName: string;
@@ -48,9 +49,13 @@ export function UserRegistration() {
 
     try {
       const result = await api.post('/user/create', formatedRequestData);
-      console.log('Resposta da API:', result.data); // Mostra apenas os dados retornados pela API
-    } catch (error) {
-      console.error('Erro na requisição:', error.response?.data || error.message);
+      console.log('Resposta da API:', result.data);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.error('Erro na requisição:', error.response?.data || error.message);
+      } else {
+        console.error('Erro inesperado:', (error as Error).message);
+      }
     }
   }
   return (

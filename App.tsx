@@ -2,9 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; // Adicionado
 import { useFonts } from 'expo-font';
-
-import Login from './src/screens/Auth/Login'; // Sua tela de Login
 import { RootNavigator } from 'src/screens';
+import { AuthProvider } from 'src/context/auth-context/auth-context';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,11 +17,13 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar style="light" />
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-      </View>
+        <StatusBar style="light" />
+      <AuthProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+     </AuthProvider>
+        </View>
   );
 }
 
