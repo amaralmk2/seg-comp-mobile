@@ -1,38 +1,51 @@
-import { Text, View, ScrollView } from "react-native";
-import { ReactNode } from 'react';
+import { Text, View, ScrollView, TextInput } from "react-native";
+import { ReactNode, useState } from 'react'; 
 import { HeaderApp } from "../../components/Header";
-import { Container, ContainerForm, TextForm, SearchContainer, Input, IconContainer } from "./style";
+import { Container, ContainerForm, TextForm, SearchContainer, Input, IconContainer } from "./style"; 
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
-
 export default function Home() {
+
+  const [searchText, setSearchText] = useState('');
+
+  const data = [
+    { id: 1, title: "Mapa Interativo", icon: <FontAwesome6 name="location-dot" size={40} color="black" /> },
+    { id: 2, title: "Contatos Importantes", icon: <AntDesign name="exclamationcircleo" size={40} color="#00274D" /> },
+    { id: 3, title: "Dicas", icon: <FontAwesome5 name="exclamation-triangle" size={40} color="#00274D" /> },
+  ];
+
+  const filteredData = data.filter(item =>
+    item.title.toLowerCase().includes(searchText.toLowerCase()) 
+  );
+
   return (
     <ScrollView>
       <HeaderApp/>
+
       <SearchContainer>
-        <Input placeholder="Buscar Serviços..." placeholderTextColor="#888" />
+        <Input 
+          placeholder="Buscar..." 
+          placeholderTextColor="#888" 
+          value={searchText} 
+          onChangeText={(text: string) => setSearchText(text)} 
+        />
         <IconContainer>
         <Ionicons name="search-sharp" size={34} color="black" />
         </IconContainer>
       </SearchContainer>
-    <Container>
-      <ContainerForm>
-      <FontAwesome6 name="location-dot" size={38} color="black" />
-        <TextForm>Mapa Interativo</TextForm>
-      </ContainerForm>
-      <ContainerForm>
-      <AntDesign name="exclamationcircleo" size={38} color="#00274D" />
-        <TextForm>Contatos Importantes</TextForm>
-      </ContainerForm>
-      <ContainerForm>
-      <FontAwesome5 name="exclamation-triangle" size={38} color="#00274D" />
-        <TextForm>Dicas</TextForm>
-      </ContainerForm>
-    </Container>
+
+     
+      <Container>
+        {filteredData.map((item) => (
+          <ContainerForm key={item.id}>
+            {item.icon} 
+            <TextForm>{item.title}</TextForm>
+          </ContainerForm>
+        ))}
+      </Container>
     </ScrollView>
   );
 }
