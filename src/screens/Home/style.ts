@@ -10,18 +10,21 @@ export const Container = styled.View`
 export const ContainerForm = styled.View`
     width: 388px;
     height: 63px;
-    padding: 14px;
+    padding: 8px;
     border-radius: 8px;
     margin-left: 10px;
+    margin-top: 25px;
     align-items: center;
     border-color: black;
     border-width: 0.6px;
+    flex-direction: row;
 `;
 
 export const TextForm = styled.Text`
 
     color: #00274D;
-    font-size: 20px;
+    font-size: 26px;
     font-family: 'Roboto';
+    margin-left: 12px;
 
 `;
