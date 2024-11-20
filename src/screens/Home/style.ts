@@ -23,8 +23,38 @@ export const ContainerForm = styled.View`
 export const TextForm = styled.Text`
 
     color: #00274D;
-    font-size: 26px;
+    font-size: 25px;
     font-family: 'Roboto';
     margin-left: 12px;
 
 `;
+
+export const SearchContainer = styled.View`
+  margin-top: 20px;
+  margin-left: 10px;
+  width: 388px;
+  height: 63px;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #ccc;
+  align-items: center;
+  padding-horizontal: 10px;
+`;
+
+export const Input = styled.TextInput`
+  flex: 1;
+  height: 100%;
+  font-size: 16px;
+  padding-vertical: 0;
+  padding-left: 10px;
+`;
+
+export const IconContainer = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+`;
+
