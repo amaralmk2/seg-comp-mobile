@@ -12,9 +12,9 @@ export default function Home() {
   const [searchText, setSearchText] = useState('');
 
   const data = [
-    { id: 1, title: "Mapa Interativo", icon: <FontAwesome6 name="location-dot" size={40} color="black" /> },
-    { id: 2, title: "Contatos Importantes", icon: <AntDesign name="exclamationcircleo" size={40} color="#00274D" /> },
-    { id: 3, title: "Dicas", icon: <FontAwesome5 name="exclamation-triangle" size={40} color="#00274D" /> },
+    { id: 1, title: "Mapa Interativo", icon: <FontAwesome6 name="location-dot" size={40} color="#FF7733" /> },
+    { id: 2, title: "Contatos Importantes", icon: <AntDesign name="exclamationcircleo" size={40} color="#FF7733" /> },
+    { id: 3, title: "Dicas", icon: <FontAwesome5 name="exclamation-triangle" size={40} color="#FF7733" /> },
   ];
 
   const filteredData = data.filter(item =>
