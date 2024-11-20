@@ -1,13 +1,19 @@
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { ReactNode } from 'react';
 import { HeaderApp } from "../../components/Header";
+import { Container, ContainerForm, TextForm } from "./style";
 
 
 
 export default function Home() {
   return (
-    <View>
-      <HeaderApp></HeaderApp>
-    </View>
+    <ScrollView>
+      <HeaderApp/>
+    <Container>
+      <ContainerForm>
+        <TextForm>Mapa interativo</TextForm>
+      </ContainerForm>
+    </Container>
+    </ScrollView>
   );
 }
