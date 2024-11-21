@@ -4,6 +4,7 @@ import { Header, TitleHeader } from './style';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 
+
 export function HeaderApp() {
   return (
     <Header>
