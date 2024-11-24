@@ -8,18 +8,20 @@ import React, { useContext, useEffect } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { RootNavigationProp } from "src/types/navigation";
 import { ActivityIndicator } from "react-native-paper";
+import { Alert } from "react-native";
   interface FormData {
     email: string;
     password: string;
   }
 export function LoginForm() {
-    const {login,logout, isAuthenticated, error, loading} = useContext(AuthContext);
+    const {login,logout, isAuthenticated, loading} = useContext(AuthContext);
 
     const navigation = useNavigation<RootNavigationProp>();
 
     useEffect(() => {
       if (isAuthenticated) {
         console.log("Login bem-sucedido");
+        Alert.alert("Bem vindo à plataforma VICOMP!");
         navigation.navigate("HomeScreen");
       }
     }, [isAuthenticated, navigation]);

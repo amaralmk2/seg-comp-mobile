@@ -7,7 +7,7 @@ export const Container = styled.View`
     flex: 1;
 `;
 
-export const ContainerForm = styled.View`
+export const ContainerForm = styled.TouchableOpacity`
     width: 388px;
     height: 63px;
     padding: 8px;
@@ -40,14 +40,13 @@ export const SearchContainer = styled.View`
   border-width: 1px;
   border-color: #ccc;
   align-items: center;
-  padding-horizontal: 10px;
+  padding: 0 10px;
 `;
 
 export const Input = styled.TextInput`
   flex: 1;
   height: 100%;
   font-size: 16px;
-  padding-vertical: 0;
   padding-left: 10px;
 `;
 
