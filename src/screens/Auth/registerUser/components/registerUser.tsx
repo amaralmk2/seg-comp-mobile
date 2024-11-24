@@ -1,14 +1,17 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ScrollView } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from 'react-native-paper';
-import { ErrorText, FormContainer, PickerContainer, StyledInput, SubmitButton, SubmitButtonText, Title } from '../style';
+import { ErrorText, FormContainer, PickerContainer, ReturnScreenButton, StyledInput, SubmitButton, SubmitButtonText, Title } from '../style';
 import { cepApplyMask, cpfApplyMask, dateApplyMask } from "src/utils";
-import { validationSchema } from './validationSchema';
+import { validationSchema } from '../validationSchema';
 import {api} from 'src/api/api';
 import { AxiosError } from "axios";
+import { useNavigation } from "@react-navigation/native";
+import { RootNavigationProp } from "src/types/navigation";
+import { PrivacyPolicy } from "./PrivacyPolicy";
 
 interface FormData {
   firstName: string;
@@ -34,6 +37,9 @@ export function UserRegistration() {
   } = useForm<FormData>({
     resolver: zodResolver(validationSchema),
   });
+
+  const navigation = useNavigation<RootNavigationProp>();
+
   async function onSubmit(data: FormData) {
     const { confirmPassword, ...requestData } = data;
     const formatedRequestData = {
@@ -58,6 +64,7 @@ export function UserRegistration() {
       }
     }
   }
+
   return (
     <ScrollView>
       <FormContainer>
@@ -258,23 +265,30 @@ export function UserRegistration() {
             </>
           )}
         />
-        <Controller
-          control={control}
-          name="privacyPolicyAccepted"
-          render={({ field: { onChange, value } }) => (
-              <>
-                <Checkbox
-                  status={value ? 'checked' : 'unchecked'}
-                  onPress={() => onChange(!value)}  
-                />
-                {errors.privacyPolicyAccepted && <ErrorText>{errors.privacyPolicyAccepted.message}</ErrorText>}
-              </>
-          )}
-        />
+        <PrivacyPolicy/>
+        <View style={{ flexDirection: 'row' , alignItems: 'center'}}>
+          <Controller
+            control={control}
+            name="privacyPolicyAccepted"
+            render={({ field: { onChange, value } }) => (
+                <>
+                  <Checkbox
+                    status={value ? 'checked' : 'unchecked'}
+                    onPress={() => onChange(!value)}  
+                  />
+                  {errors.privacyPolicyAccepted && <ErrorText>{errors.privacyPolicyAccepted.message}</ErrorText>}
+                </>
+            )}
+          />
+        <Text>Aceito todos os termos.</Text>
+        </View>
 
         <SubmitButton onPress={handleSubmit(onSubmit)}>
           <SubmitButtonText>Cadastrar</SubmitButtonText>
         </SubmitButton>
+        <ReturnScreenButton>
+          <SubmitButtonText onPress={() => navigation.navigate("LoginScreen")}>Retornar para o início</SubmitButtonText>
+        </ReturnScreenButton>
       </FormContainer>
     </ScrollView>
   );

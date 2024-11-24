@@ -39,7 +39,8 @@
     "styled-component": "^2.8.0",
     "styled-components": "^6.1.13",
     "yup": "^1.4.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "react-native-maps": "1.18.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
