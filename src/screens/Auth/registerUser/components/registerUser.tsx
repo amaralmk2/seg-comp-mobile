@@ -38,6 +38,21 @@ export function UserRegistration() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(validationSchema),
+    defaultValues:{
+      firstName: '',
+      lastName: '',
+      gender: '',
+      birthDate: '',
+      cpf: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      zipcode: '',
+      street: '',
+      number: '',
+      city: '',
+      privacyPolicyAccepted: undefined,
+    }
   });
 
   const password = watch("password");

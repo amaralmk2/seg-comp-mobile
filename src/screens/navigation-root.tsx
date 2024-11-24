@@ -4,6 +4,8 @@ import { HomeStack } from '../navigation/HomeStack';
 import { LoginStack } from '../navigation/LoginStack';
 import { RegisterUserStack } from '../navigation/RegisterUserStack';
 import { HeaderApp } from 'src/components/Header';
+import { ConctactStack } from '../navigation/ContactStack';
+import { OcurrencesMap } from './Map-Ocurrences';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -13,6 +15,8 @@ export function RootNavigator() {
         <RootStack.Screen name="HomeScreen" component={HomeStack} />
         <RootStack.Screen name="LoginScreen" component={LoginStack} />
         <RootStack.Screen name="RegisterUserScreen" component={RegisterUserStack} />
+        <RootStack.Screen name="ContactScreen" component={ConctactStack} />
+        <RootStack.Screen name="OcurrenceMapScreen" component={OcurrencesMap} />
       </RootStack.Navigator>
   );
 }
