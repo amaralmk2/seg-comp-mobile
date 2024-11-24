@@ -1,9 +1,10 @@
-  import {ScrollView, Text, View, Linking  } from "react-native";
+  import {ScrollView, Text, View, Linking, StyleSheet  } from "react-native";
   import { HeaderApp } from "../../components/Header"
   import { Container, SubTitle, TitleSubContainer, Title, TextSubTitle, ContainerText, TitleInContainer, IconContainer, ContainerText2, TitleInContainer2} from "./style";
   import { useNavigation } from "@react-navigation/native";
   import { RootNavigationProp } from "src/types/navigation";
   import Ionicons from '@expo/vector-icons/Ionicons';
+  import Map from "react-native-maps";
 
     export default function Contact() {
       const openLink = () => {
@@ -30,7 +31,19 @@
         <TextSubTitle>Central de atendimento à Mulher</TextSubTitle>
         <ContainerText><TitleInContainer>180</TitleInContainer></ContainerText>
         <ContainerText2><IconContainer><Ionicons name="location-sharp" size={40} color="black" /></IconContainer><TitleInContainer2>Mapa - Unidades Policiais</TitleInContainer2></ContainerText2>
-        
+        <View style={styles.container}>
+          <Map style={StyleSheet.absoluteFill}
+          
+          
+          />  
+        </View>
       </ScrollView>
     );
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      width: 365,
+      height: 56,
+    },
+  })
