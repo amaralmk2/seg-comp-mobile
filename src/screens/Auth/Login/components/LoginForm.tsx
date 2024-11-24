@@ -1,28 +1,27 @@
 import { BottomSend, ContainerForm, Input, SubTitle, TitleForm, TextBottom, TextErros } from "../style";
 import { ContainerField } from "../style";
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { validationSchema } from "./validationSchema";
-import { api } from "src/api/api";
 import { AuthContext } from "src/context/auth-context/auth-context";
 import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigationProp } from "src/types/navigation";
+import { ActivityIndicator } from "react-native-paper";
   interface FormData {
     email: string;
     password: string;
   }
 export function LoginForm() {
-    const {login, isAuthenticated} = useContext(AuthContext);
+    const {login, isAuthenticated, error, loading} = useContext(AuthContext);
     const navigation = useNavigation<RootNavigationProp>();
     async function onSubmit (data: FormData) {
-       const { email, password } = data;
+       const { email, password } = data
         await login(email, password);
         
        if(isAuthenticated) {
-        console.log("Login bem-sucedido");
-        navigation.navigate("HomeScreen");
+          console.log("Login bem-sucedido");
+          navigation.navigate("HomeScreen");
        }
     };
 
@@ -76,10 +75,17 @@ export function LoginForm() {
                 <TextErros>{errors.password.message}</TextErros>
               )}
           </ContainerField>
-
-          <BottomSend onPress={handleSubmit(onSubmit)}>
-            <TextBottom>Entrar</TextBottom>
-          </BottomSend>
+          {loading ? 
+          (
+             <ActivityIndicator size="large" color="black" />
+          ) 
+          : 
+          (
+            <BottomSend onPress={handleSubmit(onSubmit)}>
+                <TextBottom>Entrar</TextBottom>
+              </BottomSend>
+          )}
+          
         </ContainerForm>
     )
 }

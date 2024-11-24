@@ -2,11 +2,18 @@ import React, { useState,createContext, useEffect, useCallback } from "react";
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from "src/api/api";
+import axios from "axios";
+import { Alert } from "react-native";
 
 interface UserProps {
     email: string;
     firstName: string;
     lastName: string;
+}
+
+interface AuthError  {
+  message: string;
+  code: string;
 }
 interface AuthContextData {
     token: string | null;
@@ -14,11 +21,13 @@ interface AuthContextData {
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
     isAuthenticated: boolean;
+    loading: boolean;
+    error: AuthError | null;
   }
 
   interface CustomJwtPayload extends JwtPayload {
-    exp: number; // Timestamp da expiração
-    sub: string; // User ID ou outro identificador
+    exp: number; 
+    sub: string; 
   }
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -26,6 +35,9 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 export function AuthProvider ({children}: React.PropsWithChildren) {
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<UserProps | null>(null)
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<AuthError | null>(null);
 
     const isAuthenticated = token ? true : false;
 
@@ -43,8 +55,7 @@ export function AuthProvider ({children}: React.PropsWithChildren) {
           const currentTime = Math.floor(Date.now() / 1000); 
           return decoded.exp < currentTime; 
         } catch (error) {
-          console.error("Erro ao decodificar token:", error);
-          return true; 
+          throw new Error("Erro ao decodificar o token.");
         }
       }, []);
 
@@ -72,26 +83,54 @@ export function AuthProvider ({children}: React.PropsWithChildren) {
             const { token, user } = response.data;
         
             if (isTokenExpired(token)) {
+                Alert.alert('Sua sessão expirou.', 'Por favor, faca login novamente.');
                 throw new Error("Token recebido já está expirado.");
             }
-    
+            setLoading(true);
             setToken(token);
             setUser(user)
             await AsyncStorage.setItem('@auth_token', token);
             await AsyncStorage.setItem('@user_data', JSON.stringify(user));
-
-            console.log(token)
-            console.log(user)
-        
+            
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`
         }catch(error) {
-            console.error("Erro ao fazer login:", error);
-            throw error; 
+           if(axios.isAxiosError(error)) {
+             const status = error.response?.status;
+             switch (status) {
+              case 401:
+                setError({
+                  message: "Falha ao realizar login. Verifique suas credenciais.",
+                  code: "invalid_credentials"
+                })
+                Alert.alert("Falha ao realizar login.", "Verifique suas credenciais.");
+                break
+
+                case 422:
+                  setError({
+                    message: "Dados inválidos. Verifique as informações inseridas",
+                    code: "VALIDATION_ERROR"
+                  });
+                  Alert.alert('Dados inválidos. Verifique as informações inseridas')
+                  break;
+
+              default:
+                if (!error.response) {
+                  setError({
+                    message: "Erro de conexão. Verifique sua internet",
+                    code: "NETWORK_ERROR"
+                  });
+                  Alert.alert('Erro de conexão. Verifique sua internet')
+                }
+                break;
+             }
+           }
+        }finally {
+          setLoading(false);
         }
     } 
 
     return (
-        <AuthContext.Provider value={{token, user, login, logout, isAuthenticated}}>
+        <AuthContext.Provider value={{token, user, login, logout, isAuthenticated, error, loading}}>
             {children}
         </AuthContext.Provider>
     )
