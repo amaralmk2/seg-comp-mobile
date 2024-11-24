@@ -54,13 +54,13 @@ export const ContainerText = styled.View`
 
     width: 388px;
     height: 69px;
-    padding: 8px;
+    padding: 9px;
     margin-top: 5px;
     margin-left: 10px;
     border-radius: 8px;
     border-color: black;
     border-width: 0.3px;
-    flex-direction: row;
+    
     align-items: center;
     padding-horizontal: 10px;
 `;
@@ -81,14 +81,19 @@ margin-top: 20px;
 `;
 
 export const TitleInContainer = styled.Text`
-
   font-family: "Roboto";
   font-size: 22px;
   color: #00274D;
   text-align: center;
-  text-decoration-line: underline; /* Indica que é um link */
-  
 
+`;
+
+export const TitleInContainer3 = styled.Text`
+  font-family: "Roboto";
+  font-size: 22px;
+  color: #00274D;
+  text-align: center;
+  text-decoration-line: underline; 
 `;
 
 export const IconContainer = styled.View`
@@ -107,7 +112,7 @@ export const TitleInContainer2 = styled.Text`
   color: #00274D;
   text-align: center;
   margin-left: 20px;
-  text-decoration-line: underline; /* Indica que é um link */
+  
   
 
 `;
