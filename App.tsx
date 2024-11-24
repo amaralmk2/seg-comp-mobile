@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; // Adicionado
 import { useFonts } from 'expo-font';
-import { RootNavigator } from 'src/screens';
+import { RootNavigator } from 'src/screens/navigation-root';
 import { AuthProvider } from 'src/context/auth-context/auth-context';
 
 export default function App() {

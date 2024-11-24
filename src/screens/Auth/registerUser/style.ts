@@ -36,12 +36,19 @@ export const PickerContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-export const SubmitButton = styled.TouchableOpacity`
-  background-color: #4a90e2;
+export const Button = styled.TouchableOpacity`
   padding: 15px;
   border-radius: 5px;
   align-items: center;
   margin-top: 10px;
+`
+
+export const SubmitButton = styled(Button)`
+  background-color: #FF7733;
+`;
+
+export const ReturnScreenButton = styled(Button)`
+  background-color: #6D9DFC;
 `;
 
 export const SubmitButtonText = styled.Text`
@@ -49,3 +56,22 @@ export const SubmitButtonText = styled.Text`
   font-size: 16px;
   font-weight: bold;
 `;
+
+export const PrivacyPolicyContainer = styled.View`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 150px;
+  overflow: hidden;
+`
+
+export const PrivacyPolicyScrollView = styled.ScrollView`
+  padding: 10px;
+`
+
+export const PrivacyPolicyText = styled.Text`
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+`
