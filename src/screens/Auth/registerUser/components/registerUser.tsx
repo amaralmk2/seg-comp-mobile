@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from 'react-native-paper';
-import { ErrorText, FormContainer, PickerContainer, ReturnScreenButton, StyledInput, SubmitButton, SubmitButtonText, Title } from '../style';
+import { ErrorText, FormContainer, PasswordRequirementContainer, PickerContainer, RequimentsText, ReturnScreenButton, StyledInput, SubmitButton, SubmitButtonText, Title } from '../style';
 import { cepApplyMask, cpfApplyMask, dateApplyMask } from "src/utils";
 import { validationSchema } from '../validationSchema';
 import {api} from 'src/api/api';
@@ -12,6 +12,7 @@ import { AxiosError } from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { RootNavigationProp } from "src/types/navigation";
 import { PrivacyPolicy } from "./PrivacyPolicy";
+import { requirements } from "src/utils/password-requirements";
 
 interface FormData {
   firstName: string;
@@ -33,10 +34,13 @@ export function UserRegistration() {
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(validationSchema),
   });
+
+  const password = watch("password");
 
   const navigation = useNavigation<RootNavigationProp>();
 
@@ -56,6 +60,9 @@ export function UserRegistration() {
     try {
       const result = await api.post('/user/create', formatedRequestData);
       console.log('Resposta da API:', result.data);
+      Alert.alert('Cadastro realizado com sucesso!');
+      control._reset();
+      navigation.navigate("LoginScreen");
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         console.error('Erro na requisição:', error.response?.data || error.message);
@@ -184,6 +191,15 @@ export function UserRegistration() {
             </>
           )}
         />
+        <PasswordRequirementContainer >
+        {requirements.map((req) => (
+          <RequimentsText
+            key={req.id}>
+            {req.isValid(password) ? "✅" : "❌"}
+            {req.label}
+          </RequimentsText>
+        ))}
+      </PasswordRequirementContainer>
         <Controller
           control={control}
           name="confirmPassword"
