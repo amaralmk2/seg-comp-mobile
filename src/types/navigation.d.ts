@@ -5,6 +5,7 @@ export type RootStackParamList = {
   HomeScreen: undefined;
   LoginScreen: undefined;
   RegisterUserScreen: undefined;
+  ContactScreen: undefined;
 };
 
 // Exportando o tipo do `useNavigation` já pronto
