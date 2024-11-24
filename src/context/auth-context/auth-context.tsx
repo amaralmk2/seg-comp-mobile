@@ -80,9 +80,6 @@ export function AuthProvider ({children}: React.PropsWithChildren) {
         loadStoredData();
       }, [isTokenExpired, logout]);
 
-      console.log(token)
-      console.log(isAuthenticated)
-
     async function login(email: string, password: string){
         try {
             const response = await api.post('/auth/login',{
