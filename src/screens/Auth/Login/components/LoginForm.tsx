@@ -83,7 +83,7 @@ export function LoginForm() {
           (
             <BottomSend onPress={handleSubmit(onSubmit)}>
                 <TextBottom>Entrar</TextBottom>
-              </BottomSend>
+            </BottomSend>
           )}
           
         </ContainerForm>

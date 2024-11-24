@@ -9,7 +9,6 @@ export default function Login() {
   const navigation = useNavigation<RootNavigationProp>();
   return (
     <ScrollView>
-      <HeaderApp />
       <Container>
         <LoginForm />
         <Link onPress={() => navigation.navigate("RegisterUserScreen")}>
