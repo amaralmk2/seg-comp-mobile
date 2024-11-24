@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { validationSchema } from "./validationSchema";
 import { AuthContext } from "src/context/auth-context/auth-context";
-import { useContext } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useContext, useEffect } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { RootNavigationProp } from "src/types/navigation";
 import { ActivityIndicator } from "react-native-paper";
   interface FormData {
@@ -13,16 +13,19 @@ import { ActivityIndicator } from "react-native-paper";
     password: string;
   }
 export function LoginForm() {
-    const {login, isAuthenticated, error, loading} = useContext(AuthContext);
+    const {login,logout, isAuthenticated, error, loading} = useContext(AuthContext);
+
     const navigation = useNavigation<RootNavigationProp>();
+
+    useEffect(() => {
+      if (isAuthenticated) {
+        console.log("Login bem-sucedido");
+        navigation.navigate("HomeScreen");
+      }
+    }, [isAuthenticated, navigation]);
     async function onSubmit (data: FormData) {
        const { email, password } = data
-        await login(email, password);
-        
-       if(isAuthenticated) {
-          console.log("Login bem-sucedido");
-          navigation.navigate("HomeScreen");
-       }
+       await login(email, password);
     };
 
       const {
@@ -32,6 +35,14 @@ export function LoginForm() {
       } = useForm<FormData>({
         resolver: zodResolver(validationSchema),
       });
+
+      useFocusEffect(
+        React.useCallback(() => {
+          logout();
+          control._reset();
+        }, [logout])
+      );
+    
     return (
         <ContainerForm>
           <TitleForm>Entre em sua conta</TitleForm>

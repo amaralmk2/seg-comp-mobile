@@ -57,6 +57,18 @@ export const SubmitButtonText = styled.Text`
   font-weight: bold;
 `;
 
+export const PasswordRequirementContainer = styled.View`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+`
+
+export const RequimentsText = styled.Text`
+  font-size: 14px;
+  margin-bottom: 5px;
+`
+
 export const PrivacyPolicyContainer = styled.View`
   margin-top: 10px;
   margin-bottom: 10px;
