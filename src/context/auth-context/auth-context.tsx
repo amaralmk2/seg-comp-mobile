@@ -64,6 +64,12 @@ export function AuthProvider ({children}: React.PropsWithChildren) {
           const storedToken = await AsyncStorage.getItem('@auth_token');
           const storageUser = await AsyncStorage.getItem('@user_data');
 
+          if (isTokenExpired(storedToken || '')) {
+            Alert.alert('Sua sessão expirou.', 'Por favor, faca login novamente.');
+            logout();
+            throw new Error("Token recebido já está expirado.");
+        }
+
           if ( storedToken && storageUser ) {
             setToken(storedToken);
             setUser(JSON.parse(storageUser));
@@ -74,6 +80,9 @@ export function AuthProvider ({children}: React.PropsWithChildren) {
         loadStoredData();
       }, [isTokenExpired, logout]);
 
+      console.log(token)
+      console.log(isAuthenticated)
+
     async function login(email: string, password: string){
         try {
             const response = await api.post('/auth/login',{
@@ -81,11 +90,7 @@ export function AuthProvider ({children}: React.PropsWithChildren) {
                 password
             })
             const { token, user } = response.data;
-        
-            if (isTokenExpired(token)) {
-                Alert.alert('Sua sessão expirou.', 'Por favor, faca login novamente.');
-                throw new Error("Token recebido já está expirado.");
-            }
+    
             setLoading(true);
             setToken(token);
             setUser(user)
