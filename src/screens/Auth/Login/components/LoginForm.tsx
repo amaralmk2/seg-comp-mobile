@@ -15,7 +15,6 @@ import { Alert } from "react-native";
   }
 export function LoginForm() {
     const {login,logout, isAuthenticated, loading} = useContext(AuthContext);
-
     const navigation = useNavigation<RootNavigationProp>();
 
     useEffect(() => {

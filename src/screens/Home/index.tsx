@@ -1,6 +1,6 @@
 import {ScrollView } from "react-native";
 import {useState } from 'react'; 
-import {ContainerForm, TextForm, SearchContainer, Input, IconContainer } from "./style"; 
+import {TextForm, ButtonMenu } from "./style"; 
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -10,47 +10,24 @@ import { RootNavigationProp } from "src/types/navigation";
 
 export default function Home() {
 
-  const [searchText, setSearchText] = useState('');
-
   const navigation = useNavigation<RootNavigationProp>();
-
-  // const data = [
-  //   { id: 1, title: "Mapa Interativo", icon: <FontAwesome6 name="location-dot" size={40} color="#FF7733" /> },
-  //   { id: 2, title: "Contatos Importantes", icon: <AntDesign name="exclamationcircleo" size={40} color="#FF7733" /> },
-  //   { id: 3, title: "Dicas", icon: <FontAwesome5 name="exclamation-triangle" size={40} color="#FF7733" /> },
-  // ];
-
-  // const filteredData = data.filter(item =>
-  //   item.title.toLowerCase().includes(searchText.toLowerCase()) 
-  // );
 
   return (
     <ScrollView>
-      <SearchContainer>
-        <Input 
-          placeholder="Buscar..." 
-          placeholderTextColor="#888" 
-          value={searchText} 
-          onChangeText={(text: string) => setSearchText(text)} 
-        />
-        <IconContainer>
-        <Ionicons name="search-sharp" size={34} color="black" />
-        </IconContainer>
-      </SearchContainer>
-          <ContainerForm onPress={() => {navigation.navigate("OcurrenceMapScreen")}}>
+          <ButtonMenu onPress={() => {navigation.navigate("OcurrenceMapScreen")}}>
             <FontAwesome6 name="location-dot" size={40} color="#FF7733" />
             <TextForm>Mapa de Ocorrências</TextForm>
-          </ContainerForm>
+          </ButtonMenu>
 
-          <ContainerForm onPress={() => {navigation.navigate("ContactScreen")}} >
+          <ButtonMenu onPress={() => {navigation.navigate("ContactScreen")}} >
             <AntDesign name="exclamationcircleo" size={40} color="#FF7733" />
-            <TextForm>Contatos Importantes</TextForm>
-          </ContainerForm>
+            <TextForm>Contatos importantes</TextForm>
+          </ButtonMenu>
 
-          <ContainerForm >
+          <ButtonMenu onPress={() => {navigation.navigate("DailyTipsScreen")}} >
             <FontAwesome5 name="exclamation-triangle" size={40} color="#FF7733" /> 
-            <TextForm>Dicas</TextForm>
-          </ContainerForm>
+            <TextForm>Dicas diárias de segurança</TextForm>
+          </ButtonMenu>
     </ScrollView>
   );
 }
