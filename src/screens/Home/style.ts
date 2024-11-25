@@ -7,7 +7,7 @@ export const Container = styled.View`
     flex: 1;
 `;
 
-export const ContainerForm = styled.TouchableOpacity`
+export const ButtonMenu = styled.TouchableOpacity`
     width: 388px;
     height: 63px;
     padding: 8px;

@@ -7,20 +7,20 @@ export function NavBar() {
 
     const navigation = useNavigation<RootNavigationProp>();
 
-    return (
-        <NavBarContainer>
-            <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")} activeOpacity={0.5}>
-                <NavBarText>Início</NavBarText> 
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("OcurrenceMapScreen")} activeOpacity={0.5}>
-                <NavBarText>Mapa</NavBarText>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("ContactScreen")} activeOpacity={0.5}>
-                <NavBarText>Contatos e localizações</NavBarText>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <NavBarText>Dicas diárias</NavBarText>
-            </TouchableOpacity>
-        </NavBarContainer>
+return (
+    <NavBarContainer>
+        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")} activeOpacity={0.5}>
+            <NavBarText>Início</NavBarText> 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("OcurrenceMapScreen")} activeOpacity={0.5}>
+            <NavBarText>Mapa</NavBarText>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("ContactScreen")} activeOpacity={0.5}>
+            <NavBarText>Contatos e localizações</NavBarText>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("DailyTipsScreen")} activeOpacity={0.5} >
+            <NavBarText>Dicas diárias</NavBarText>
+        </TouchableOpacity>
+    </NavBarContainer>
     )
 }
