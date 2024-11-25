@@ -29,4 +29,8 @@ Para iniciar a aplicação utilize:
 npx expo start
 ```
 
+## Observações:
+Para a utilização da aplicação, é necessário a utilização do servidor Back-End para a requisição de dados. Segue o link abaixo, onde há todas os requisitos:
+https://github.com/Ricardo-1991/vicomp-backend
+
 
