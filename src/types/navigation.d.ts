@@ -7,7 +7,7 @@ export type RootStackParamList = {
   RegisterUserScreen: undefined;
   ContactScreen: undefined;
   OcurrenceMapScreen: undefined;
+  DailyTipsScreen: undefined;
 };
 
-// Exportando o tipo do `useNavigation` já pronto
 export type RootNavigationProp = StackNavigationProp<RootStackParamList>;

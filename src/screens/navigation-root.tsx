@@ -6,6 +6,7 @@ import { ConctactStack } from '../navigation/ContactStack';
 import { RegisterUserStack } from '../navigation/RegisterUserStack';
 import { HeaderApp } from 'src/components/Header';
 import { OcurrencesMap } from './Map-Ocurrences';
+import {DailyTips} from './Tips';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -17,6 +18,7 @@ export function RootNavigator() {
         <RootStack.Screen name="RegisterUserScreen" component={RegisterUserStack} />
         <RootStack.Screen name="ContactScreen" component={ConctactStack} />
         <RootStack.Screen name="OcurrenceMapScreen" component={OcurrencesMap} />
+        <RootStack.Screen name="DailyTipsScreen" component={DailyTips} />
       </RootStack.Navigator>
   );
 }
